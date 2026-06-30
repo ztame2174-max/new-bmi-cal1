@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""Simple BMI calculator.
+
+Usage:
+  Run the script and follow prompts. Enter weight in kilograms and height in meters or centimeters.
+"""
+def get_float(prompt):
+	while True:
+		try:
+			s = input(prompt).strip()
+			if s.endswith('cm'):
+				return float(s[:-2]) / 100.0
+			if s.endswith('m'):
+				return float(s[:-1])
+			return float(s)
+		except Exception:
+			print('Invalid number, try again.')
+
+def bmi_category(bmi):
+	if bmi < 18.5:
+		return 'Underweight'
+	if bmi < 25:
+		return 'Normal weight'
+	if bmi < 30:
+		return 'Overweight'
+	return 'Obesity'
+
+def main():
+	print('BMI Calculator')
+	weight = get_float('Weight (kg): ')
+	height = get_float('Height (m or cm): ')
+	if height <= 0 or weight <= 0:
+		print('Weight and height must be positive.')
+		return
+	bmi = weight / (height * height)
+	print(f'BMI: {bmi:.2f} — {bmi_category(bmi)}')
+
+if __name__ == '__main__':
+	main()
